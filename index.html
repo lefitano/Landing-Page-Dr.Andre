@@ -67,8 +67,8 @@
             </div>
             
             <div class="especialidade-destaque">
-                <div class="especialidade-icon">✨</div>
-                <p class="especialidade">Sou especialista na arte de facetas em resina composta, onde já transformei mais de <strong>4.000 vidas</strong> com um sorriso único.</p>
+                <div class="especialidade-icon">🦷</div>
+                <p class="especialidade">Odontologia estética Premium, atendimento VIP e mais de <strong>2.000</strong> lentes assinadas, unindo técnica, arte e exclusividade.</p>
             </div>
             
             <!-- Card de Localização -->
@@ -118,64 +118,112 @@
     </section>
 
     <!-- seção resultados -->
-    <section id="resultados">
-        <div class="container">
-            <div class="secao-titulo">
-                <h2>Resultados</h2>
-            </div>
-            <p class="secao-descricao">Transformações que mudaram vidas</p>
-            <!-- fotos dos casos-->
-             <div class="imgs-resultados">
-                <img src="images/fotoscasos1.jpg" alt="Resultado 1">
-                <img src="images/fotoscasos2.jpg" alt="Resultado 2">
-                <img src="" alt="Resultado 3">
-                <img src="" alt="Resultado 4">
-                <img src="" alt="Resultado 5">
-                <img src="" alt="Resultado 6">
-             </div>
+   <!-- seção resultados -->
+<section id="resultados">
+    <div class="container">
+        <div class="secao-titulo">
+            <h2>Resultados</h2>
         </div>
-    </section>
-
-    <!-- seção do curso -->
-    <section id="curso">
-        <div class="container">
-            <div class="secao-titulo destaque-curso">
-                <h2>Meu curso</h2>
+        <p class="secao-descricao">Transformações que mudaram vidas</p>
+        
+        <!-- resultados em carrossel -->
+        <div class="carrossel-container">
+            <div class="carrossel-wrapper">
+                <div class="carrossel-track">
+                    <div class="carrossel-slide">
+                        <img src="images/fotoscasos1.jpg" alt="Resultado 1">
+                    </div>
+                    <div class="carrossel-slide">
+                        <img src="images/fotoscasos2.jpg" alt="Resultado 2">
+                    </div>
+                    <div class="carrossel-slide">
+                        <img src="images/fotoscasos3.jpeg" alt="Resultado 3">
+                    </div>
+                    <div class="carrossel-slide">
+                        <img src="images/fotoscasos4.jpeg" alt="Resultado 4">
+                    </div>
+                    <div class="carrossel-slide">
+                        <img src="images/fotoscasos6.jpeg" alt="Resultado 6">
+                    </div>
+                </div>
             </div>
             
-            <div class="curso-content">
-                <div class="curso-info">
-                    <h3 class="curso-nome">
-                        <span class="d-letra">D</span><span class="omine-texto">omine</span>
-                    </h3>
-                    <p class="curso-subtitulo">Facetas e Resinas</p>
-                    <p class="curso-descricao">Neste curso, compartilho minha experiência e técnicas que utilizo para alcançar resultados excepcionais com facetas e resina composta.</p>
-                    <p class="curso-descricao2">Se você busca aperfeiçoar seus resultados clínicos e transformar a vida de seus pacientes, esse curso é pra você.</p>
-                    <ul class="curso-diferenciais">
-                        <li>✓ Técnicas exclusivas testadas em milhares de resultados</li>
-                        <li>✓ Acompanhamento prático e teórico</li>
-                        <li>✓ Certificação</li>
-                        <li>✓ Material didático completo</li>
-                    </ul>
-                    
-                    <div class="curso-botoes">
-                        <a href="https://wa.me/message/KH2B44FIMSTFP1" class="btn-curso">
-                            Saiba mais sobre o curso
-                        </a>
-                        <!-- Descomente quando tiver o PDF -->
-                        <!-- <a href="arquivos/catalogo-curso.pdf" target="_blank" class="btn-pdf">
-                            <i class="fa-solid fa-file-pdf"></i> Ver Catálogo
-                        </a> -->
+            <!-- botões de navegação do carrossel-->
+            <button class="carrossel-btn carrossel-btn-prev" aria-label="Anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="carrossel-btn carrossel-btn-next" aria-label="Próximo">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            
+            <!-- Indicadores -->
+            <div class="carrossel-indicadores"></div>
+        </div>
+    </div>
+</section>
+
+    <!-- seção do curso -->
+<section id="curso">
+    <div class="container">
+        <div class="secao-titulo destaque-curso">
+            <h2>Meu curso</h2>
+        </div>
+        
+        <div class="curso-content">
+            <div class="curso-info">
+                <h3 class="curso-nome">
+                    <span class="d-letra">D</span><span class="omine-texto">omine</span>
+                </h3>
+                <p class="curso-subtitulo">Facetas e Resinas</p>
+                <p class="curso-descricao">Neste curso, compartilho minha experiência e técnicas que utilizo para alcançar resultados excepcionais com facetas e resina composta.</p>
+                <p class="curso-descricao2">Se você busca aperfeiçoar seus resultados clínicos e transformar a vida de seus pacientes, esse curso é pra você.</p>
+                <ul class="curso-diferenciais">
+                    <li>✓ Técnicas exclusivas testadas em milhares de resultados</li>
+                    <li>✓ Acompanhamento prático e teórico</li>
+                    <li>✓ Certificação</li>
+                    <li>✓ Material didático completo</li>
+                </ul>
+                
+                <div class="curso-botoes">
+                    <a href="https://wa.me/5585991453905?text=Olá,%20vim%20em%20busca%20de%20mais%20informações%20sobre%20o%20Curso%20DOMINE." class="btn-curso">
+                        Saiba mais sobre o curso
+                    </a>
+                    <a href="files/Curso DOMINE - Edição 2.pdf" target="_blank" class="btn-pdf">
+                        <i class="fa-solid fa-file-pdf"></i>Acessar ao PDF do Curso
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Carrossel de Fotos do Curso -->
+            <div class="curso-carrossel-container">
+                <div class="curso-carrossel-wrapper">
+                    <div class="curso-carrossel-track">
+                        <div class="curso-carrossel-slide">
+                            <img src="images/ministrandocurso.jpg" alt="Dr. André ministrando curso">
+                        </div>
+                        <div class="curso-carrossel-slide">
+                            <img src="images/certificacaocurso2.jpeg" alt="Alunos em prática">
+                        </div>
+                        <div class="curso-carrossel-slide">
+                            <img src="images/certificacaocurso1.jpeg" alt="Material didático">
+                        </div>
                     </div>
                 </div>
                 
-                <div class="curso-imagem">
-                    <img src="" alt="Dr. André ministrando curso">
-                </div>
+                <!-- Botões de navegação -->
+                <button class="curso-carrossel-btn curso-carrossel-btn-prev" aria-label="Anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="curso-carrossel-btn curso-carrossel-btn-next" aria-label="Próximo">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                
+                <!-- Indicadores -->
+                <div class="curso-carrossel-indicadores"></div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- seção contatos -->
     <section id="contatos">
         <div class="container">
