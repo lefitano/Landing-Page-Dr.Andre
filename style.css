@@ -5,9 +5,10 @@
 }
 
 body {
-    font-family: "Raleway", "Montserrat", sans-serif;
+    font-family: "Inter", "Roboto", sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    line-height: 1.6;
 }
 
 html {
@@ -50,6 +51,38 @@ html {
     box-shadow: 0 8px 20px rgba(103, 123, 145, 0.3);
 }
 
+/* Menu Toggle (Hamburger) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
 /* Menu */
 .menu {
     flex: 2;
@@ -68,20 +101,22 @@ html {
 
 .menu a {
     text-decoration: none;
-    color: #000000;
-    font-size: 16px;
-    font-weight: 500;
+    color: #2c3e50;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s;
-    border-radius: 30px;
-    background-color: #cbcabea4;
-    padding: 12px 25px;
+    border-radius: 25px;
+    background-color: transparent;
+    padding: 10px 22px;
     display: inline-block;
     line-height: 1;
+    letter-spacing: 0.3px;
 }
 
 .menu a:hover {
     color: #007bff;
-    background-color: #b8b7aea4;
+    background-color: #e8f4ff;
     transform: translateY(-2px);
 }
 
@@ -93,8 +128,9 @@ html {
     padding: 12px 25px;
     text-decoration: none;
     border-radius: 30px;
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s;
     text-align: center;
     display: inline-block;
@@ -107,7 +143,7 @@ html {
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
 }
 
-
+/* HERO SECTION */
 .hero-section {
     display: flex;
     align-items: center;
@@ -120,35 +156,40 @@ html {
 }
 
 .nome {
-    font-size: 48px;
-    color: #333;
+    font-size: 52px;
+    color: #1a1a1a;
     margin-bottom: 10px;
     font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -1px;
 }
 
 .titulo-profissional {
     font-size: 28px;
-    color: #12273d;
+    color: #2c3e50;
     margin-bottom: 20px;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
 }
 
 .bio {
     font-size: 18px;
     color: #555;
     margin-bottom: 30px;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-family: 'Inter', sans-serif;
 }
 
 .btn-hero {
     display: inline-block;
     background-color: #17202b;
     color: white;
-    padding: 15px 40px;
+    padding: 16px 42px;
     text-decoration: none;
     border-radius: 30px;
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s;
 }
 
@@ -189,7 +230,9 @@ html {
 }
 
 .secao-titulo h2 {
-    font-size: 40px;
+    font-size: 42px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
     color: #333;
     display: inline-block;
     padding: 15px 40px;
@@ -198,6 +241,7 @@ html {
     border-radius: 50px;
     box-shadow: 0 5px 20px rgba(0, 123, 255, 0.3);
     position: relative;
+    letter-spacing: 0.5px;
 }
 
 .secao-titulo h2::after {
@@ -221,30 +265,134 @@ html {
     font-size: 18px;
     color: #666;
     margin-bottom: 40px;
+    font-family: 'Inter', sans-serif;
 }
 
-/* seção sobre */
+/* ========== SEÇÃO SOBRE ========== */
 #sobre {
     padding: 80px 0;
-    background-color: #ffffff;
+    background-color: #fff8f0;
+}
+
+/* Especialidade com destaque */
+.especialidade-destaque {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 40px 50px;
+    margin: 0 auto 50px;
+    max-width: 900px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.especialidade-destaque::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.especialidade-icon {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 .especialidade {
-    font-size: 20px;
-    color: #140c0c;
+    font-size: 22px;
+    color: #ffffff;
     text-align: center;
-    max-width: 900px;                   /* Ajeitar cores e deixar mais destacada essa parte de especialidade*/ 
-    margin: 0 auto 20px;
     line-height: 1.8;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    position: relative;
+    z-index: 1;
 }
 
-.local-de-atendimento {
-    font-size: 18px;
-    color: #13202d;
-    text-align: center;
-    max-width: 800px;
+.especialidade strong {
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Card de Localização */
+.localizacao-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 700px;
     margin: 0 auto 50px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.localizacao-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 123, 255, 0.2);
+    border-color: #007bff;
+}
+
+.localizacao-icon {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 5px 20px rgba(0, 123, 255, 0.3);
+}
+
+.localizacao-icon i {
+    font-size: 36px;
+    color: white;
+}
+
+.localizacao-info h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
+}
+
+.endereco-principal {
+    font-size: 18px;
+    color: #1a1a1a;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+.endereco-complemento {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+}
+
+.cidade {
+    font-size: 16px;
+    color: #007bff;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
 }
 
 /* fotos do consultorio */
@@ -281,7 +429,6 @@ html {
     transform: scale(1.1);
 }
 
-
 .foto-overlay {
     position: absolute;
     bottom: 0;
@@ -301,6 +448,7 @@ html {
     color: white;
     font-size: 18px;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     text-align: center;
 }
@@ -311,18 +459,20 @@ html {
     gap: 25px;
 }
 
-/* seção resultados */
+/* ========== SEÇÃO RESULTADOS ========== */
 #resultados {
     padding: 80px 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
-.imgs-resultados{
+
+.imgs-resultados {
     display: flex;
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
 }
-.imgs-resultados img{
+
+.imgs-resultados img {
     width: 400px;
     height: 400px;
     object-fit: cover;
@@ -331,14 +481,15 @@ html {
     transition: all 0.4s ease;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-.imgs-resultados:hover{
+
+.imgs-resultados img:hover {
     transform: scale(1.05) rotate(-2deg);
     filter: brightness(1.1);
     box-shadow: 0 15px 40px rgba(0, 123, 255, 0.3);
     border-color: #16208e;
 }
 
-
+/* ========== SEÇÃO CURSO ========== */
 #curso {
     padding: 80px 0;
     background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
@@ -362,18 +513,19 @@ html {
 
 /* Nome do Curso - DOMINE */
 .curso-nome {
-    font-size: 56px;
-    margin-bottom: 10px;    /*VERIFICAR E AJEITAR POSSIVEL ALTERAÇÃO NO NOME DO CURSO, PARA FICAR HARMONIOSO COM O PDF */
+    font-size: 64px;
+    margin-bottom: 10px;
     font-weight: 900;
-    letter-spacing: 2px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 3px;
     line-height: 1.2;
 }
 
 .d-letra {
     color: #ffffff;
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    padding: 5px 15px;
-    border-radius: 10px; 
+    padding: 8px 20px;
+    border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
 }
 
@@ -383,17 +535,20 @@ html {
 }
 
 .curso-subtitulo {
-    font-size: 24px;
+    font-size: 26px;
     color: #0056b3;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
     margin-bottom: 25px;
 }
 
-.curso-descricao {
+.curso-descricao,
+.curso-descricao2 {
     font-size: 18px;
     color: #555;
     line-height: 1.8;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    font-family: 'Inter', sans-serif;
 }
 
 .curso-diferenciais {
@@ -407,6 +562,8 @@ html {
     margin-bottom: 15px;
     padding-left: 10px;
     position: relative;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
 
 .curso-diferenciais li::before {
@@ -416,15 +573,23 @@ html {
     margin-right: 10px;
 }
 
+/* Botões do Curso */
+.curso-botoes {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .btn-curso {
     display: inline-block;
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 15px 40px;
+    padding: 16px 40px;
     text-decoration: none;
     border-radius: 30px;
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s;
     box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
@@ -433,6 +598,29 @@ html {
     background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
+}
+
+.btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #dc3545;
+    padding: 16px 35px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+    border: 2px solid #dc3545;
+    transition: all 0.3s;
+}
+
+.btn-pdf:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
 }
 
 .curso-imagem {
@@ -455,67 +643,7 @@ html {
     border-color: #0056b3;
 }
 
-/* Responsivo para o curso */
-@media (max-width: 968px) {
-    .curso-nome {
-        font-size: 42px;
-    }
-    
-    .curso-content {
-        flex-direction: column;
-    }
-}
-
-/* ========== RESPONSIVO ========== */
-@media (max-width: 968px) {
-    .hero-section {
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    
-    .hero-image img {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .galeria-consultorio {
-        grid-template-columns: 1fr;
-    }
-    
-    .foto-destaque .foto-wrapper img,
-    .foto-item .foto-wrapper img {
-        height: 300px;
-    }
-    
-    .curso-content {
-        flex-direction: column;
-    }
-    
-    .contatos-info {
-        grid-template-columns: 1fr;
-    }
-    
-    .header-top {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .menu {
-        flex: none;
-        width: 100%;
-    }
-    
-    .menu ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-.curso-descricao2 {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
+/* ========== SEÇÃO CONTATOS ========== */
 #contatos {
     padding: 80px 0;
     background-color: #ffffff;
@@ -528,7 +656,9 @@ html {
     margin-top: 40px;
 }
 
-.contato-whatsapp {
+.contato-whatsapp,
+.contato-instagram,
+.contato-localizacao {
     text-align: center;
     padding: 40px 20px;
     background: #f8f9fa;
@@ -538,78 +668,71 @@ html {
 }
 
 .contato-whatsapp:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(9, 252, 114, 0.992);  /* ATUALIZAR ANIMAÇÃO PARA CADA TIPO DE CONTATO E LOCALIZAÇÃO E DAR MAIS DESTAQUE A ELES*/
-    background: #e9ecef;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+    background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+    border: 2px solid #25D366;
 }
 
-.contato-whatsapp h3 {
-    font-size: 28px;
-    color: #424eab;
-    margin-bottom: 15px;
+.contato-instagram:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(225, 48, 108, 0.4);
+    background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%);
+    border: 2px solid #E1306C;
 }
 
-.contato-whatsapp p {
-    font-size: 18px;
-    color: #0f0808;
-    line-height: 1.6;
+.contato-localizacao:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
 }
-.contato-instagram {
-    text-align: center;
-    padding: 40px 20px;
-    background: #f8f9fa;
-    border-radius: 15px;
-    transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(39, 35, 35, 0.1);
-}
-.contato-instagram:hover{
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 25px rgba(255, 30, 203, 0.899);
-    background: #e9ecef;
-}
-.contato-instagram h3{
-    font-size: 28px;
-    color:#424eab;
+
+.contato-whatsapp h3,
+.contato-instagram h3,
+.contato-localizacao h3 {
+    font-size: 26px;
+    color: #2c3e50;
     margin-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
-.contato-instagram p{
-    font-size: 18px;
-    color:#0f0808;
+
+.contato-whatsapp h3 i {
+    color: #25D366;
+    margin-right: 8px;
+}
+
+.contato-instagram h3 i {
+    color: #E1306C;
+    margin-right: 8px;
+}
+
+.contato-localizacao h3 i {
+    color: #3b82f6;
+    margin-right: 8px;
+}
+
+.contato-whatsapp p,
+.contato-instagram p,
+.contato-localizacao p {
+    font-size: 17px;
+    color: #1a1a1a;
     line-height: 1.6;
-}
-.contato-localizaçao{
-    text-align: center;
-    padding: 40px 20px;
-    background: #f8f9fa;
-    border-radius: 15px;
-    transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(39, 35, 35, 0.1);
-}
-.contato-localizaçao:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgb(7, 69, 227);  /* ATUALIZAR ANIMAÇÃO PARA CADA TIPO DE CONTATO E LOCALIZAÇÃO E DAR MAIS DESTAQUE A ELES*/
-    background: #e9ecef;
-}
-.contato-localizaçao h3{
-    font-size: 28px;
-    color: #424eab;
-    margin-bottom: 15px;
-}
-.contato-localizaçao p{
-    font-size: 18px;
-    color:#0f0808;
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
 
 .btn-entrecontato {
     display: inline-block;
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 15px 40px;
+    padding: 16px 40px;
     text-decoration: none;
     border-radius: 30px;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 18px;
+    font-family: 'Poppins', sans-serif;
     transition: all 0.3s;
     box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
@@ -622,7 +745,7 @@ html {
 
 /* ========== RODAPÉ ========== */
 .footer {
-    background-color: #333;
+    background-color: #2c3e50;
     color: white;
     padding: 30px 0;
     text-align: center;
@@ -630,19 +753,86 @@ html {
 
 .footer p {
     margin: 0;
-    font-size: 14px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
 }
 
 /* ========== RESPONSIVO ========== */
 @media (max-width: 968px) {
+    .header-top {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        order: 2;
+    }
+    
+    .logo {
+        order: 1;
+        flex: 1;
+    }
+    
+    .btn-contato {
+        order: 3;
+        flex: none;
+    }
+    
+    .menu {
+        order: 4;
+        width: 100%;
+        flex: none;
+    }
+    
+    .menu ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+    
+    .menu ul.active {
+        display: flex;
+    }
+    
+    .menu a {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+    
     .hero-section {
         flex-direction: column-reverse;
         text-align: center;
     }
     
+    .nome {
+        font-size: 40px;
+    }
+    
     .hero-image img {
         width: 300px;
         height: 300px;
+    }
+    
+    .especialidade-destaque {
+        padding: 30px 25px;
+    }
+    
+    .especialidade {
+        font-size: 19px;
+    }
+    
+    .localizacao-card {
+        flex-direction: column;
+        text-align: center;
     }
     
     .galeria-consultorio {
@@ -654,6 +844,10 @@ html {
         height: 300px;
     }
     
+    .curso-nome {
+        font-size: 48px;
+    }
+    
     .curso-content {
         flex-direction: column;
     }
@@ -661,52 +855,36 @@ html {
     .contatos-info {
         grid-template-columns: 1fr;
     }
-    
-    .header-top {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .menu {
-        flex: none;
-        width: 100%;
-    }
-    
-    .menu ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 }
-
-/* REVISAR OS CODIGOS ACIMA COM COMENTARIOS PARA ALTERAÇÃO*/
-
-
-/* ADICIONAR UM BOTÃO PARA VER O PDF DO CURSO <a href="arquivos/catalogo-curso.pdf" target="_blank" class="btn-pdf">
-    📄 Ver Catálogo do Curso
-</a> */
-
-
-
-
-
-/*CSS para mobile */
-
-
-@media (max-width: 768px) {
-   
-}
-
 
 @media (max-width: 480px) {
-    .hero-section {
-        flex-direction: column; /* Empilha conteúdo */
+    .logo img {
+        width: 200px;
     }
     
-    .menu ul {
-        display: none; /* Esconde menu, mostra só quando ativo */
+    .nome {
+        font-size: 32px;
     }
     
-    .imgs-resultados {
-        grid-template-columns: 1fr; /* 1 coluna só */
+    .titulo-profissional {
+        font-size: 22px;
+    }
+    
+    .secao-titulo h2 {
+        font-size: 32px;
+        padding: 12px 30px;
+    }
+    
+    .especialidade {
+        font-size: 17px;
+    }
+    
+    .curso-nome {
+        font-size: 36px;
+    }
+    
+    .imgs-resultados img {
+        width: 100%;
+        height: 300px;
     }
 }
