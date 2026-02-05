@@ -684,3 +684,29 @@ html {
 /* ADICIONAR UM BOTÃO PARA VER O PDF DO CURSO <a href="arquivos/catalogo-curso.pdf" target="_blank" class="btn-pdf">
     📄 Ver Catálogo do Curso
 </a> */
+
+
+
+
+
+/*CSS para mobile */
+
+
+@media (max-width: 768px) {
+   
+}
+
+
+@media (max-width: 480px) {
+    .hero-section {
+        flex-direction: column; /* Empilha conteúdo */
+    }
+    
+    .menu ul {
+        display: none; /* Esconde menu, mostra só quando ativo */
+    }
+    
+    .imgs-resultados {
+        grid-template-columns: 1fr; /* 1 coluna só */
+    }
+}
