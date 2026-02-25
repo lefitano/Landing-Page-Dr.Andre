@@ -8,9 +8,7 @@ if (menuToggle && menu) {
         menuToggle.classList.toggle('active');
     });
 
-    // Fechar menu ao clicar em um link
-    const menuLinks = document.querySelectorAll('.menu a');
-    menuLinks.forEach(link => {
+    document.querySelectorAll('.menu a').forEach(link => {
         link.addEventListener('click', () => {
             menu.classList.remove('active');
             menuToggle.classList.remove('active');
@@ -18,317 +16,187 @@ if (menuToggle && menu) {
     });
 }
 
-// ========== SCROLL SUAVE ==========
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+// ========== HEADER SCROLL EFFECT ==========
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ========== ANIMAÇÃO DE ENTRADA (INTERSECTION OBSERVER) ==========
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
         }
     });
-});
+}, observerOptions);
 
-// ========== CARROSSEL DE RESULTADOS ==========
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ========== CLASSE GENÉRICA DE CARROSSEL ==========
 class Carrossel {
-    constructor() {
-        this.track = document.querySelector('.carrossel-track');
-        this.slides = Array.from(document.querySelectorAll('.carrossel-slide'));
-        this.btnPrev = document.querySelector('.carrossel-btn-prev');
-        this.btnNext = document.querySelector('.carrossel-btn-next');
-        this.indicadoresContainer = document.querySelector('.carrossel-indicadores');
-        
+    constructor(config) {
+        this.track = document.querySelector(config.trackSelector);
+        this.slides = Array.from(document.querySelectorAll(config.slideSelector));
+        this.btnPrev = document.querySelector(config.btnPrevSelector);
+        this.btnNext = document.querySelector(config.btnNextSelector);
+        this.indicadoresContainer = document.querySelector(config.indicadoresSelector);
+        this.indicadorClass = config.indicadorClass;
+        this.keyboardEnabled = config.keyboardEnabled || false;
+
         if (!this.track || this.slides.length === 0) return;
-        
+
         this.currentIndex = 0;
         this.startX = 0;
         this.currentX = 0;
         this.isDragging = false;
-        
+
         this.init();
     }
-    
+
     init() {
-        // Criar indicadores
         this.criarIndicadores();
-        
-        // Event listeners dos botões
-        this.btnPrev.addEventListener('click', () => this.prev());
-        this.btnNext.addEventListener('click', () => this.next());
-        
-        // Swipe no mobile
-        this.track.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-        this.track.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-        this.track.addEventListener('touchend', () => this.handleTouchEnd());
-        
-        // Drag no desktop
-        this.track.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-        this.track.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-        this.track.addEventListener('mouseup', () => this.handleMouseUp());
-        this.track.addEventListener('mouseleave', () => this.handleMouseUp());
-        
-        // Teclado (setas)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') this.prev();
-            if (e.key === 'ArrowRight') this.next();
+
+        this.btnPrev?.addEventListener('click', () => this.prev());
+        this.btnNext?.addEventListener('click', () => this.next());
+
+        // Touch (mobile)
+        this.track.addEventListener('touchstart', (e) => {
+            this.startX = e.touches[0].clientX;
+            this.isDragging = true;
+        }, { passive: true });
+
+        this.track.addEventListener('touchmove', (e) => {
+            if (!this.isDragging) return;
+            this.currentX = e.touches[0].clientX;
+        }, { passive: true });
+
+        this.track.addEventListener('touchend', () => this.handleSwipeEnd());
+
+        // Drag (desktop)
+        this.track.addEventListener('mousedown', (e) => {
+            this.startX = e.clientX;
+            this.isDragging = true;
+            this.track.style.cursor = 'grabbing';
         });
-        
-        // Auto-play (opcional - descomente se quiser)
-        // this.autoPlay();
+
+        this.track.addEventListener('mousemove', (e) => {
+            if (!this.isDragging) return;
+            this.currentX = e.clientX;
+        });
+
+        this.track.addEventListener('mouseup', () => this.handleDragEnd());
+        this.track.addEventListener('mouseleave', () => this.handleDragEnd());
+
+        // Teclado (apenas no carrossel principal, se habilitado)
+        if (this.keyboardEnabled) {
+            document.addEventListener('keydown', (e) => {
+                // Só navega se nenhum input/textarea estiver em foco
+                if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+                if (e.key === 'ArrowLeft') this.prev();
+                if (e.key === 'ArrowRight') this.next();
+            });
+        }
     }
-    
+
     criarIndicadores() {
-        this.slides.forEach((_, index) => {
-            const indicador = document.createElement('div');
-            indicador.classList.add('carrossel-indicador');
-            if (index === 0) indicador.classList.add('active');
-            indicador.addEventListener('click', () => this.goToSlide(index));
-            this.indicadoresContainer.appendChild(indicador);
-        });
-        this.indicadores = Array.from(this.indicadoresContainer.children);
+        if (!this.indicadoresContainer) return;
         this.indicadoresContainer.innerHTML = '';
-    
+
         this.slides.forEach((_, index) => {
-            const indicador = document.createElement('div');
-            indicador.classList.add('carrossel-indicador');
+            const indicador = document.createElement('button');
+            indicador.classList.add(this.indicadorClass);
+            indicador.setAttribute('aria-label', `Slide ${index + 1}`);
             if (index === 0) indicador.classList.add('active');
             indicador.addEventListener('click', () => this.goToSlide(index));
             this.indicadoresContainer.appendChild(indicador);
         });
+
         this.indicadores = Array.from(this.indicadoresContainer.children);
     }
-    
+
     updateCarrossel() {
         const offset = -this.currentIndex * 100;
         this.track.style.transform = `translateX(${offset}%)`;
-        
-        // Atualizar indicadores
-        this.indicadores.forEach((ind, index) => {
+
+        this.indicadores?.forEach((ind, index) => {
             ind.classList.toggle('active', index === this.currentIndex);
         });
     }
-    
+
     next() {
         this.currentIndex = (this.currentIndex + 1) % this.slides.length;
         this.updateCarrossel();
     }
-    
+
     prev() {
         this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
         this.updateCarrossel();
     }
-    
+
     goToSlide(index) {
         this.currentIndex = index;
         this.updateCarrossel();
     }
-    
-    // Touch events (mobile)
-    handleTouchStart(e) {
-        this.startX = e.touches[0].clientX;
-        this.isDragging = true;
-    }
-    
-    handleTouchMove(e) {
+
+    handleSwipeEnd() {
         if (!this.isDragging) return;
-        this.currentX = e.touches[0].clientX;
-    }
-    
-    handleTouchEnd() {
-        if (!this.isDragging) return;
-        
         const diff = this.startX - this.currentX;
-        
-        // Se arrastou mais de 50px
         if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                this.next();
-            } else {
-                this.prev();
-            }
+            diff > 0 ? this.next() : this.prev();
         }
-        
         this.isDragging = false;
     }
-    
-    // Mouse events (desktop)
-    handleMouseDown(e) {
-        this.startX = e.clientX;
-        this.isDragging = true;
-        this.track.style.cursor = 'grabbing';
-    }
-    
-    handleMouseMove(e) {
+
+    handleDragEnd() {
         if (!this.isDragging) return;
-        this.currentX = e.clientX;
-    }
-    
-    handleMouseUp() {
-        if (!this.isDragging) return;
-        
         const diff = this.startX - this.currentX;
-        
         if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                this.next();
-            } else {
-                this.prev();
-            }
+            diff > 0 ? this.next() : this.prev();
         }
-        
         this.isDragging = false;
         this.track.style.cursor = 'grab';
     }
-    
-    // Auto-play (opcional)
-    autoPlay() {
-        setInterval(() => {
-            this.next();
-        }, 5000); // Muda a cada 5 segundos
+
+    autoPlay(interval = 5000) {
+        this.autoPlayInterval = setInterval(() => this.next(), interval);
+    }
+
+    pauseAutoPlay() {
+        clearInterval(this.autoPlayInterval);
     }
 }
 
-// Inicializar carrossel quando o DOM carregar
+// ========== INICIALIZAÇÃO ==========
 document.addEventListener('DOMContentLoaded', () => {
-    new Carrossel();
-});
-// ========== CARROSSEL DO CURSO ==========
-class CarrosselCurso {
-    constructor() {
-        this.track = document.querySelector('.curso-carrossel-track');
-        this.slides = Array.from(document.querySelectorAll('.curso-carrossel-slide'));
-        this.btnPrev = document.querySelector('.curso-carrossel-btn-prev');
-        this.btnNext = document.querySelector('.curso-carrossel-btn-next');
-        this.indicadoresContainer = document.querySelector('.curso-carrossel-indicadores');
-        
-        if (!this.track || this.slides.length === 0) return;
-        
-        this.currentIndex = 0;
-        this.startX = 0;
-        this.currentX = 0;
-        this.isDragging = false;
-        
-        this.init();
-    }
-    
-    init() {
-        // Criar indicadores
-        this.criarIndicadores();
-        
-        // Event listeners dos botões
-        this.btnPrev.addEventListener('click', () => this.prev());
-        this.btnNext.addEventListener('click', () => this.next());
-        
-        // Swipe no mobile
-        this.track.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-        this.track.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-        this.track.addEventListener('touchend', () => this.handleTouchEnd());
-        
-        // Drag no desktop
-        this.track.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-        this.track.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-        this.track.addEventListener('mouseup', () => this.handleMouseUp());
-        this.track.addEventListener('mouseleave', () => this.handleMouseUp());
-    }
-    
-    criarIndicadores() {
-        this.slides.forEach((_, index) => {
-            const indicador = document.createElement('div');
-            indicador.classList.add('curso-carrossel-indicador');
-            if (index === 0) indicador.classList.add('active');
-            indicador.addEventListener('click', () => this.goToSlide(index));
-            this.indicadoresContainer.appendChild(indicador);
-        });
-        this.indicadores = Array.from(this.indicadoresContainer.children);
-    }
-    
-    updateCarrossel() {
-        const offset = -this.currentIndex * 100;
-        this.track.style.transform = `translateX(${offset}%)`;
-        
-        // Atualizar indicadores
-        this.indicadores.forEach((ind, index) => {
-            ind.classList.toggle('active', index === this.currentIndex);
-        });
-    }
-    
-    next() {
-        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-        this.updateCarrossel();
-    }
-    
-    prev() {
-        this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
-        this.updateCarrossel();
-    }
-    
-    goToSlide(index) {
-        this.currentIndex = index;
-        this.updateCarrossel();
-    }
-    
-    // Touch events (mobile)
-    handleTouchStart(e) {
-        this.startX = e.touches[0].clientX;
-        this.isDragging = true;
-    }
-    
-    handleTouchMove(e) {
-        if (!this.isDragging) return;
-        this.currentX = e.touches[0].clientX;
-    }
-    
-    handleTouchEnd() {
-        if (!this.isDragging) return;
-        
-        const diff = this.startX - this.currentX;
-        
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                this.next();
-            } else {
-                this.prev();
-            }
-        }
-        
-        this.isDragging = false;
-    }
-    
-    // Mouse events (desktop)
-    handleMouseDown(e) {
-        this.startX = e.clientX;
-        this.isDragging = true;
-        this.track.style.cursor = 'grabbing';
-    }
-    
-    handleMouseMove(e) {
-        if (!this.isDragging) return;
-        this.currentX = e.clientX;
-    }
-    
-    handleMouseUp() {
-        if (!this.isDragging) return;
-        
-        const diff = this.startX - this.currentX;
-        
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                this.next();
-            } else {
-                this.prev();
-            }
-        }
-        
-        this.isDragging = false;
-        this.track.style.cursor = 'grab';
-    }
-}
+    // Carrossel de Resultados
+    new Carrossel({
+        trackSelector: '.carrossel-track',
+        slideSelector: '.carrossel-slide',
+        btnPrevSelector: '.carrossel-btn-prev',
+        btnNextSelector: '.carrossel-btn-next',
+        indicadoresSelector: '.carrossel-indicadores',
+        indicadorClass: 'carrossel-indicador',
+        keyboardEnabled: true
+    });
 
-// Inicializar ambos os carrosséis quando o DOM carregar
-document.addEventListener('DOMContentLoaded', () => {
-    new Carrossel(); // Carrossel de resultados
-    new CarrosselCurso(); // Carrossel do curso
+    // Carrossel do Curso
+    new Carrossel({
+        trackSelector: '.curso-carrossel-track',
+        slideSelector: '.curso-carrossel-slide',
+        btnPrevSelector: '.curso-carrossel-btn-prev',
+        btnNextSelector: '.curso-carrossel-btn-next',
+        indicadoresSelector: '.curso-carrossel-indicadores',
+        indicadorClass: 'curso-carrossel-indicador',
+        keyboardEnabled: false
+    });
 });
