@@ -843,12 +843,30 @@ button {
     box-shadow: var(--shadow-md);
     border: 1px solid var(--borda);
     transition: var(--trans-base);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .localizacao-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-azul);
     border-color: var(--azul-claro);
+}
+
+.localizacao-action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--azul);
+    transition: var(--trans-base);
+}
+
+.localizacao-card:hover .localizacao-action {
+    gap: var(--space-3);
 }
 
 .localizacao-icon {
@@ -1218,6 +1236,8 @@ button {
     transition: var(--trans-base);
     cursor: pointer;
     gap: var(--space-2);
+    text-decoration: none;
+    color: inherit;
 }
 
 .contato-card:hover {
