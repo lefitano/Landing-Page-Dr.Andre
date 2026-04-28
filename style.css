@@ -1342,7 +1342,6 @@ button {
     background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
     border-color: var(--azul-claro);
     box-shadow: var(--shadow-azul);
-    cursor: default;
 }
 
 .contato-localizacao:hover .contato-icone-wrapper {
